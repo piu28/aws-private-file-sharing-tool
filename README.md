@@ -20,8 +20,9 @@ The intention is to create a simple web app that has the following features:
 - It not already registered, the user will be redirected to the registration page. Once registered, the user will be asked to reenter his/her credentials to download the file.
 
 ## How to make it work
-Clone the Repo. Specify the correct parameters in js/aws/awsConfig.js. Serve the Document Root Location through a Web Server.
+Clone the Repo. Specify the correct parameters in js/aws/config.js. Serve the Document Root Location through a Web Server.
 In our case, we have tested on an Ubuntu Server and configured Nginx Web Server to serve the application.
+
 Also, an api (code exists in api directory in the repo) has been used to authenticate and redirect the AD users to the correct page. Start the api using below command:
 ```
 node server.js
