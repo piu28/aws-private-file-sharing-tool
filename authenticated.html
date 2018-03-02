@@ -1,0 +1,140 @@
+<html>
+   <head>
+      <title>Download Page</title>
+      <script src="js/jsbn.js"></script>
+      <script src="js/jsbn2.js"></script>
+      <script src="js/sjcl.js"></script>
+      <script src="js/moment.js"></script>
+      <script src="js/aws-cognito-sdk.min.js"></script>
+      <script src="js/amazon-cognito-identity.min.js"></script>
+      <script src="js/aws-sdk.js"></script>
+      <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+      <script src="bootstrap-3.3.7-dist/js/npm.js"></script>
+      <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css"/>
+      <script src="js/index.js"></script>
+      <script src="js/aws/config.js"></script>
+      <script src="js/aws/login.js"></script>
+      <script src="js/aws/s3.js"></script>
+      <script src="node_modules/crypto-js/crypto-js.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   <body onload="authenticationInit()">
+      <!-- Div Showing Login Page -->
+      <div class="container" style="display:none" id="authloginDiv">
+         <h3>You are a Registered User. Enter your credentials to download the file.</h3>
+         <label style="color:red" id="loginErrMsg">&nbsp;</label>
+         <div class="form-inline">
+            <div class="form-group">
+               <label class="sr-only" for="exampleInputEmail3">Email address</label>
+               <input class="form-control" id="userName" placeholder="UserName">
+            </div>
+            <div class="form-group">
+               <label class="sr-only" for="exampleInputPassword3">Password</label>
+               <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button class="btn btn-default" onclick="onLogin ()" id="loginButton">Sign in</button>
+         </div>
+      </div>
+      <!-- Div Showing the Post Login Menu -->
+      <div class="container" style="display:none" id="authmenuDiv">
+         <h3>Click here to download your file... </h3>
+      </div>
+      <div class="row">
+         <a style="display:block" href="#">
+            <div class="col-lg-10" id="output">
+         </a>
+         </div>
+      </div>
+      <div class="container" style="display:none" id="unauthloginDiv">
+         <h3>You are not a Registered User. Enter your details below to get registered.</h3>
+         <label style="color:red" id="loginErrMsg">&nbsp;</label>
+         <div class="form-inline">
+            <div class="row">
+               <div class="form-group">
+                  <div class="col-md-1">&nbsp;</div>
+                  <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                  <input class="form-control" id="unauthUsername" placeholder="Email Id">
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-6">&nbsp;</div>
+            </div>
+            <div class="row">
+               <div class="form-group">
+                  <div class="col-md-1">&nbsp;</div>
+                  <label class="sr-only" for="exampleInputPassword3">Password</label>
+                  <input type="password" class="form-control" id="unauthPassword" placeholder="Password" onchange='checkPassword();'> <span data-toggle='tooltip' title='Specify a minimum password length of at least 8 characters, as well as include uppercase, numeric, and special characters'>?</span>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-6">&nbsp;</div>
+            </div>
+            <div class="row">
+               <div class="form-group">
+                  <div class="col-md-1">&nbsp;</div>
+                  <label class="sr-only" for="exampleInputPassword3">Password</label>
+                  <input type="password" class="form-control" id="unauthConfirmPassword" placeholder="RepeatPassword" onchange='validatePassword();'>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-6">&nbsp;</div>
+            </div>
+            <div class="row">
+               <div class="form-group">
+                  <div class="col-md-1">&nbsp;</div>
+                  <label class="sr-only" for="exampleInputNumber3">Phone Number</label>
+                  <input class="form-control" id="unauthPhone" placeholder="+911234567890">
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-6">&nbsp;</div>
+            </div>
+            <div class="row">
+               <div class="col-md-1">&nbsp;</div>
+               <button class="btn btn-default"  id="register" onclick="register ()" data-toggle="modal" data-target="#myModal">Register</button>
+            </div>
+            <div class="row">
+               <a style="display:block" href="#">
+                  <div class="col-lg-4" id="code">
+               </a>
+               </div>
+            </div>
+            <div class="row">
+               <a style="display:block" href="#">
+                  <div class="col-lg-4" id="confirmbutton">
+               </a>
+               </div>
+            </div>
+            <div id="myModal" class="modal fade" role="dialog">
+               <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">User Confirmation</h4>
+                     </div>
+                     <div class="modal-body">
+                        <p>Please enter your Confirmation Code received via Email:</p>
+                        <input type="number" class="form-control" id="confirmcode" placeholder="ConfirmationCode">
+                     </div>
+                     <div class="modal-footer">
+                        <button class="btn btn-default"  id="confirmbutton" onclick="confirmUser ()" data-dismiss="modal">Confirm</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Div Showing the Post Login Menu -->
+      <div class="container" style="display:none"  id="unauthmenuDiv">
+         <h3>You have successfully registered. Click here to login.. </h3>
+         <input type="button" value="Login" onclick="authenticateLogin()">
+      </div>
+      <div class="container" style="display:none"  id="unauthorizedMenuDiv">
+         <h3>You are not Authorized to download this file... </h3>
+      </div>
+   </body>
+</html>

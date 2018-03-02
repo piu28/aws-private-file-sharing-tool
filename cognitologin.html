@@ -1,0 +1,80 @@
+<html>
+   <head>
+      <title>Cognito Users Login</title>
+      <script src="js/jsbn.js"></script>
+      <script src="js/jsbn2.js"></script>
+      <script src="js/sjcl.js"></script>
+      <script src="js/moment.js"></script>
+      <script src="js/aws-cognito-sdk.min.js"></script>
+      <script src="js/amazon-cognito-identity.min.js"></script>
+      <script src="js/aws-sdk.js"></script>
+      <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+      <script src="bootstrap-3.3.7-dist/js/npm.js"></script>
+      <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css"/>
+      <script src="js/index.js"></script>
+      <script src="js/aws/config.js"></script>
+      <script src="js/aws/login.js"></script>
+      <script src="js/aws/s3.js"></script>
+      <script src="node_modules/crypto-js/crypto-js.js"></script>
+   </head>
+   <body onload="init()">
+      <!-- Div Showing Login Page -->
+      <div class="container" style="display:none" id="loginDiv">
+         <h3>Login Here</h3>
+         <label style="color:red" id="loginErrMsg">&nbsp;</label>
+         <div class="form-inline">
+            <div class="form-group">
+               <label class="sr-only" for="exampleInputEmail3">Email address</label>
+               <input class="form-control" id="userName" placeholder="UserName">
+            </div>
+            <div class="form-group">
+               <label class="sr-only" for="exampleInputPassword3">Password</label>
+               <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button class="btn btn-default" onclick="onLogin ()" id="loginButton">Sign in</button>
+         </div>
+      </div>
+      <!-- Div Showing the Post Login Menu -->
+      <div class="container" style="display:none;" id="menuDiv">
+      <h3>Welcome !!!! You have successfully logged in. </h3>
+      <div class="row">
+         <div class="col-md-6">&nbsp;</div>
+      </div>
+      <div class="row">
+         <div class="col-md-1">&nbsp;</div>
+         <div class="col-md-3"><input type="text" class="form-control" id="bucketPrefix" placeholder="Bucket Prefix" /></div>
+         <div class="col-md-3"><button class="btn btn-primary" onclick="showS3BucketContents ()" id="viewS3BucketButton">View Contents</button></div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">&nbsp;</div>
+      </div>
+      <div class="row">
+         <div class="col-md-1">&nbsp;</div>
+         <div class="col-md-3"><input type="text" class="form-control" id="toaddress" placeholder="To Address" /></div>
+         <div class="col-md-3"><button class="btn btn-primary" onclick="checkEmail ()" id="sendemail">Send Email</button></div>
+      </div>
+      <div class="row">
+      <a style="display:block" href="#">
+         <div class="col-md-1">&nbsp;</div>
+         <div class="col-md-3" id="emailoutput">
+      </a>
+      </div>
+      <div class="row">
+         <div class="col-md-6">&nbsp;</div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">&nbsp;</div>
+      </div>
+      <div class="row">
+         <div class="col-md-6"><button type="button" class="btn btn-danger" onclick="onLogout()">Logout</button></div>
+         <div class="col-md-3">&nbsp;</div>
+         <div class="col-md-3">&nbsp;</div>
+      </div>
+      <div class="row">
+         <a style="display:block" href="#">
+            <div class="col-lg-10" id="output">
+         </a>
+         </div>
+      </div>
+   </body>
+</html>

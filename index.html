@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+   <script src="js/aws/config.js"></script>
+   <script src="js/aws/saml.js"></script>
+   <head>
+      <title>PowerupCloud Cognito S3</title>
+      <link rel="stylesheet" type="text/css" href="css/main.css">
+   </head>
+   <body>
+      <div class="limiter">
+         <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <div class="wrap-login100">
+               <span> <img src="images/powerup_logo.jpg" alt="PowerupCloud Logo" style="width:400px;height:130px;"> </span>
+               <span class="login100-form-title p-b-10 p-t-15">
+               Log in
+               </span>
+               <div class="container-login100-form-btn">
+                  <button class="login100-form-btn" id="button1" onclick="adLogin()">
+                  Internal Employees
+                  </button>
+               </div>
+               <div class="container-login100-form-btn">
+                  <button class="login100-form-btn" id="button2">
+                  External Users
+                  </button>
+               </div>
+               <script type="text/javascript">
+                  document.getElementById("button2").onclick = function () {
+                  location.href = "/cognitologin.html";
+                   };
+               </script>
+            </div>
+         </div>
+      </div>
+   </body>
+ </html>
